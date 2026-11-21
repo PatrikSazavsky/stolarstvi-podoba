@@ -1,0 +1,1188 @@
+/* ==========================================================================
+   STOLAŘSTVÍ PODOBA — PRÉMIOVÝ ŘEMESLNÝ DESIGN SYSTÉM
+   Typografie: Tenor Sans (architektonická prémiová lehkost, bez hrubého boldu)
+               + Plus Jakarta Sans (čitelnost a čistota)
+   Hero: Plně otevřené, vzdušné, bez těžkého zakrývajícího boxu
+   Barevnost: Přírodní kouřový dub, ořech, jemný teplý podklad, nulový neon/glow
+   ========================================================================== */
+
+:root {
+  /* Teplá paleta masivního dřeva, ořechu a přírodních materiálů */
+  --color-bg: #191614;
+  --color-surface: #211d19;
+  --color-surface-card: #27221d;
+  --color-surface-elevated: #2e2822;
+  
+  --color-border: rgba(215, 155, 80, 0.18);
+  --color-border-strong: rgba(215, 155, 80, 0.35);
+  
+  --color-accent: #d89647;
+  --color-accent-light: #f0bc75;
+  --color-accent-dark: #b5762a;
+  
+  --color-text: #faf7f2;
+  --color-text-muted: #c8bead;
+  --color-text-dim: #8e8372;
+  
+  /* Prémiová architektonická typografie (Tenor Sans je čisté, přirozené a ne-tučné) */
+  --font-display: 'Tenor Sans', Georgia, 'Times New Roman', serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Rozměry */
+  --container-max: 1240px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --transition-fast: 0.16s ease-out;
+  --transition-smooth: 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Základní nastavení
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  /* Teplé podkresové vrstvení: vertikální linky prken a ambientní světlo */
+  background-image: 
+    linear-gradient(180deg, rgba(215, 155, 80, 0.04) 0%, transparent 60%),
+    repeating-linear-gradient(90deg, rgba(215, 155, 80, 0.015) 0px, rgba(215, 155, 80, 0.015) 1px, transparent 1px, transparent 96px),
+    radial-gradient(ellipse at 85% 15%, rgba(216, 150, 71, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(181, 118, 42, 0.06) 0%, transparent 50%);
+  color: var(--color-text);
+  line-height: 1.65;
+  overflow-x: hidden;
+  position: relative;
+  padding-bottom: 0 !important;
+}
+
+/* Přístupnost: přeskočení na obsah */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  background: var(--color-accent);
+  color: #121110;
+  padding: 10px 18px;
+  font-weight: 600;
+  z-index: 1000;
+  border-radius: var(--radius-sm);
+  transition: top var(--transition-fast);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 4vw, 2.75rem);
+  padding-right: clamp(1.25rem, 4vw, 2.75rem);
+}
+
+.relative-z {
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Decentní vodoznak na pozadí pro hloubku bez rušení
+   -------------------------------------------------------------------------- */
+.section-watermark {
+  position: absolute;
+  top: 15%;
+  left: -2%;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 13vw, 10rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.025);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.right-watermark {
+  left: auto;
+  right: -2%;
+}
+
+/* --------------------------------------------------------------------------
+   Hlavičky sekcí & Řemeslná linka
+   -------------------------------------------------------------------------- */
+.section-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.blueprint-bracket {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.blueprint-title {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.blueprint-ruler {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--color-border-strong), transparent);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  font-weight: 400; /* Mírná, prémiová tloušťka bez hrubého boldu */
+  line-height: 1.18;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.wood-timber-line {
+  width: 55px;
+  height: 2px;
+  background-color: var(--color-accent);
+  margin: 1.25rem 0 1.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Tlačítka: Pevná, štíhlá, bez neonového svícení
+   -------------------------------------------------------------------------- */
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.85rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #141210;
+  border: 1px solid var(--color-accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.btn-primary:hover, .btn-primary:focus-visible {
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.btn-secondary {
+  background-color: rgba(28, 25, 22, 0.7);
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  backdrop-filter: blur(8px);
+}
+.btn-secondary:hover, .btn-secondary:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent-light);
+  background-color: rgba(40, 36, 31, 0.9);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Hlavička webu: Čistá, vzdušná, bez sticky pruhů
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: clamp(1.25rem, 3vw, 2.25rem) 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand-link {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.brand-subtitle {
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+.main-nav {
+  display: none;
+}
+@media (min-width: 820px) {
+  .main-nav {
+    display: block;
+  }
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background-color: rgba(30, 26, 22, 0.75);
+  border: 1px solid var(--color-border);
+  padding: 0.45rem 1.6rem;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(10px);
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+.nav-link:hover, .nav-link:focus-visible {
+  color: var(--color-accent-light);
+}
+
+.header-phone-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(30, 26, 22, 0.75);
+  border: 1px solid var(--color-border-strong);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-fast);
+}
+.header-phone-box:hover {
+  border-color: var(--color-accent);
+  background-color: rgba(45, 39, 33, 0.95);
+  transform: translateY(-1px);
+}
+
+.phone-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+}
+
+.phone-number {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   HERO SEKCE: Vzdušná, otevřená, bez těžkého zakrývajícího boxu!
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 8rem;
+  padding-bottom: 7rem;
+  overflow: hidden;
+}
+
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Snímek řemesla je velký, jasný a plně viditelný */
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: brightness(0.96) contrast(1.04);
+  transition: opacity 0.4s ease-out;
+}
+
+/* Jemná filmová viněta zleva: zajišťuje perfektní čitelnost textu,
+   zatímco zbytek plochy zůstává zcela čistý a nezakrytý */
+.hero-cinema-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(22, 19, 17, 0.94) 0%,
+    rgba(22, 19, 17, 0.78) 35%,
+    rgba(22, 19, 17, 0.35) 60%,
+    transparent 85%
+  ),
+  linear-gradient(
+    to top,
+    var(--color-bg) 0%,
+    transparent 18%
+  );
+}
+
+@media (max-width: 900px) {
+  .hero-cinema-vignette {
+    background: linear-gradient(
+      180deg,
+      rgba(22, 19, 17, 0.75) 0%,
+      rgba(22, 19, 17, 0.88) 55%,
+      var(--color-bg) 100%
+    );
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* Žádný těžký box! Text přirozeně a elegantně dýchá přímo nad vizuálem */
+.hero-text-flow {
+  max-width: 650px;
+}
+
+.hero-kicker {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  margin-bottom: 1.25rem;
+  display: inline-block;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.35rem);
+  font-weight: 400; /* Mírná, prémiová tloušťka */
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.015em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.65);
+}
+
+.hero-lead {
+  font-size: clamp(1.0625rem, 1.8vw, 1.1875rem);
+  font-weight: 400;
+  color: rgba(245, 242, 236, 0.88);
+  line-height: 1.75;
+  margin-bottom: 2.25rem;
+  max-width: 540px;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Spodní architektonická lišta pro přepínání fotografií v heru (nezavazí v centru) */
+.hero-dock {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+
+.hero-dock-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.dock-caption {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+  font-weight: 600;
+}
+
+.hero-showcase-switcher {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(28, 24, 21, 0.7);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+
+.hero-switch-btn .switch-idx {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.hero-switch-btn:hover {
+  background-color: rgba(45, 39, 34, 0.9);
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.hero-switch-btn.is-active {
+  background-color: var(--color-accent);
+  color: #141210;
+  border-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.hero-switch-btn.is-active .switch-idx {
+  color: #141210;
+}
+
+/* --------------------------------------------------------------------------
+   O NÁS SEKCE: Teplé dřevěné desky a architektonické rozvržení
+   -------------------------------------------------------------------------- */
+.about-section {
+  padding: clamp(5.5rem, 8vw, 8rem) 0;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+}
+@media (min-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+    align-items: start;
+  }
+}
+
+.about-text-lead {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.about-text {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+
+.about-summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.25rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.summary-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-accent-light);
+}
+
+.summary-desc {
+  font-size: 0.8125rem;
+  color: var(--color-text-dim);
+}
+
+.about-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timber-craft-card {
+  position: relative;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1.75rem 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.timber-craft-card:hover {
+  border-color: var(--color-border-strong);
+  transform: translateX(4px);
+}
+
+.card-edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background-color: var(--color-accent);
+}
+
+.timber-num {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.timber-heading {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.timber-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   FOTOGALERIE: 3D Interaktivní scéna bez šipek (žádný glow, čistý posun)
+   -------------------------------------------------------------------------- */
+.gallery-section {
+  padding: clamp(5.5rem, 8vw, 8rem) 0 4.5rem;
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-title-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 2.75rem;
+}
+@media (min-width: 768px) {
+  .gallery-title-row {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.gallery-sub {
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.gallery-instruction-text {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-light);
+  padding: 0.45rem 0.95rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.gallery-stage-viewport {
+  width: 100%;
+  perspective: 1500px;
+  perspective-origin: 50% 50%;
+  padding: 1.5rem 0 3rem;
+  overflow: hidden;
+}
+
+.interactive-stage {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-x pan-y;
+  padding-left: clamp(1rem, 5vw, 4rem);
+  padding-right: clamp(1rem, 5vw, 4rem);
+}
+.interactive-stage::-webkit-scrollbar {
+  display: none;
+}
+.interactive-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.stage-track {
+  display: flex;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  width: max-content;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Karta fotografie */
+.photo-card {
+  width: clamp(280px, 32vw, 410px);
+  flex-shrink: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-smooth);
+  will-change: transform;
+}
+
+.photo-card-inner {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-smooth);
+  cursor: pointer;
+  position: relative;
+}
+
+.photo-card-inner:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+.card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #12100e;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.photo-card-inner:hover .card-media img {
+  transform: scale(1.05);
+}
+
+.wood-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+  opacity: 0.25;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+.photo-card-inner:hover .wood-sheen {
+  opacity: 0.55;
+}
+
+.card-footer {
+  padding: 1.15rem 1.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.card-badge {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.card-action {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.gallery-note-box {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: rgba(30, 26, 22, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  max-width: 720px;
+  margin: 1rem auto 0;
+}
+.gallery-note-box p {
+  font-size: 0.875rem;
+  color: var(--color-text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   KONTAKTY SEKCE: Pevná a přehledná
+   -------------------------------------------------------------------------- */
+.contact-section {
+  padding: clamp(5.5rem, 8vw, 8rem) 0;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+}
+@media (min-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr 420px;
+    gap: 4.5rem;
+    align-items: start;
+  }
+}
+
+.contact-lead-text {
+  font-size: 1.1875rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 620px;
+}
+
+.contact-action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.contact-list {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--color-border);
+}
+@media (min-width: 520px) {
+  .contact-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+
+.contact-key {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.contact-value {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 400;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+.contact-value:hover {
+  color: var(--color-accent-light);
+}
+
+.contact-value.highlight {
+  font-size: 1.35rem;
+  color: var(--color-accent);
+}
+
+.workshop-card {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.workshop-card-header {
+  padding: 1.75rem 2rem 1.25rem;
+  background-color: var(--color-surface-elevated);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.workshop-tag {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  margin-bottom: 0.35rem;
+}
+
+.workshop-name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.workshop-sub {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.workshop-card-body {
+  padding: 1.75rem 2rem;
+}
+
+.workshop-scope {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+}
+
+.workshop-timber-box {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 1.15rem;
+  border-radius: var(--radius-sm);
+}
+
+.timber-box-title {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.timber-box-val {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   PATA WEBU
+   -------------------------------------------------------------------------- */
+.site-footer {
+  padding: 3rem 0;
+  background-color: #110f0e;
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+.footer-brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.footer-copy {
+  font-size: 0.8125rem;
+  color: var(--color-text-dim);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-nav a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+.footer-nav a:hover {
+  color: var(--color-accent-light);
+}
+
+/* --------------------------------------------------------------------------
+   INTERAKTIVNÍ 3D INSPEKČNÍ MODAL (TURNTABLE ROTATION)
+   -------------------------------------------------------------------------- */
+.turntable-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+}
+.turntable-modal[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(14, 12, 10, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-dialog-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
+  animation: scaleIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  perspective: 1200px;
+}
+
+.turntable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.turntable-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.btn-modal-close {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+}
+.btn-modal-close:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  background-color: var(--color-surface-card);
+}
+
+.turntable-stage {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  position: relative;
+  border-radius: var(--radius-sm);
+  background-color: #12100e;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.turntable-stage.is-turning {
+  cursor: grabbing;
+}
+
+.turntable-card {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.08s ease-out;
+}
+
+.turntable-photo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+.turntable-specular {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0.22) 0%, transparent 60%);
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+  transition: opacity 0.15s ease-out;
+}
+
+.turntable-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.turntable-hint {
+  font-size: 0.8125rem;
+  color: var(--color-accent-light);
+  font-weight: 500;
+}
+
+.turntable-angle-display {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --------------------------------------------------------------------------
+   Optimalizace přístupnosti & Prefers-Reduced-Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

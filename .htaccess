@@ -1,0 +1,59 @@
+# ==============================================================================
+# STOLAŘSTVÍ PODOBA — PRODUKČNÍ KONFIGURACE APACHE / WEDOS
+# Obsahuje kompletní bezpečnostní hlavičky, HTTPS vynucení, kompresi a cache
+# ==============================================================================
+
+# 1. VYNUCENÍ HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# 2. KOMPLETNÍ BEZPEČNOSTNÍ HLAVIČKY (Dle požadavku na bezpečnostní prověrku)
+<IfModule mod_headers.c>
+  # Clickjacking ochrana (zamezí podvodnému vložení do cizího rámu)
+  Header set X-Frame-Options "SAMEORIGIN"
+
+  # Zákaz MIME-type sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # Přísná politika referreru (neunikají interní URL)
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Omezení přístupu k citlivým senzorům a zařízením
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # HSTS — Vynucení šifrovaného spojení
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Content Security Policy (CSP)
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+</IfModule>
+
+# 3. ZABEZPEČENÍ SLOŽEK A SKRYTÝCH SOUBORŮ
+<FilesMatch "^\.">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+Options -Indexes
+
+# 4. GZIP / DEFLATE KOMPRESE PRO RYCHLOST A SEO
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# 5. CACHOVÁNÍ STATICKÝCH ZDROJŮ (OBRÁZKY, CSS, JS)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
